@@ -4,21 +4,31 @@ import tkinter
 import json
 from tkinter import filedialog, ttk, messagebox
 
-#TODO 메인화면 꾸미면 끝 ㅈㅈ
-#TODO Changhyeon 타일pos찍을수있게만들어주세요
-#TODO Changhyeon 테마변경
-#TODO Jongyeol 언어팩?
+#TODO Changhyeon 타일pos찍을수있게만들어주세요 <- 나중에 할게요 계산 뜯어고쳐야 해서 너무 힘들듯
+#TODO Changhyeon 테마변경 <- 기각 ㅈㅅ ( 라이트모드만들어도안쓸것같아요 )
+#TODO Jongyeol 언어팩 + 시간 <- 언어팩은 만들었어요 / 시간은 계산하기 힘든데 해볼게요
+#TODO Jongyeol 총합 <- 나중에 할게요 2222 가 아니라 지금해볼게요
+
+# 번역을 하다
+def load_language(lang_code):
+    with open(f"lang/{lang_code}.json", "r", encoding="utf-8") as file:
+        return json.load(file)
+
+# 언어를 적용하다
+with open("save.json", "r", encoding="utf-8-sig") as file:
+    data: dict = json.loads(file.read())
+
+if data["lang"]:
+    try: lang = load_language(data["lang"])
+    except FileNotFoundError: lang = load_language("en")
+else:
+    lang = load_language("en")
 
 # 메인 윈도우 생성
 window = tb.Window(themename="darkly")
-window.title("Merge Your Charts ( No virus ) ( FOR FREE! ) ( But free version ) ( Buy PRO! )")
+window.title(lang["Merge Your Charts ( No virus ) ( FOR FREE! ) ( But free version ) ( Buy PRO! )"])
 window.geometry("640x400+100+100")
 window.resizable(False, False)
-
-# # 번역을 하다
-# def load_language(lang_code):
-#     with open(f"lang/{lang_code}.json", "r", encoding="utf-8") as file:
-#         return json.load(file)
 
 # 파일 선택 함수
 def choosing_func():
@@ -28,7 +38,7 @@ def choosing_func():
         order = []
         for item in tree.get_children(): order.append(tree.item(item)["values"])
         
-        result = messagebox.askyesno("Info", "Are you sure you want to merge it like this?")
+        result = messagebox.askyesno(lang["Info"], lang["Are you sure you want to merge it like this?"])
         if result == False: return
         
         title = order[0][1]
@@ -50,32 +60,30 @@ def choosing_func():
             for line in data["actions"]: # 이벤트 병합
                 try:
                     line["floor"] = int(line["floor"]) + len(final["angleData"])
-                    print(line)
                     final["actions"].append(line)
                 except: print("Can't find the floor")
             
             for line in data["decorations"]: # 장식 병합
                 try:
                     line["floor"] = int(line["floor"]) + len(final["angleData"])
-                    print(line)
                     final["decorations"].append(line)
                 except: print("Can't find the floor")
             
             final["angleData"] += data["angleData"] # 타일 병합
         
-        folder_path = filedialog.askdirectory(title="Choic the folder")
+        folder_path = filedialog.askdirectory(title=lang["Choice the folder"])
         
         with open(f"{folder_path}/{title}", "w", encoding="utf-8-sig") as file_write: # 최종 저장
             json.dump(final, file_write, indent=4, ensure_ascii=False)
         
-        messagebox.showinfo("info", "Merge success.")
+        messagebox.showinfo(lang["Info"], lang["Merge success."])
         
         merging_window.quit()
         merging_window.destroy()
         window.deiconify() # 메인 윈도우 복원
     
     file_paths = filedialog.askopenfilenames(
-        title="Select files", 
+        title=lang["Select files"], 
         filetypes=[(".adofai", "*.adofai")]
     )
     
@@ -104,11 +112,11 @@ def choosing_func():
         )
         
         # 열 설정
-        tree.heading("index", text="Index")
-        tree.heading("file_name", text="File Name")
-        tree.heading("tiles", text="Tiles")
-        tree.heading("events", text="Events")
-        tree.heading("decorations", text="Decorations")
+        tree.heading("index", text=lang["Index"])
+        tree.heading("file_name", text=lang["File Name"])
+        tree.heading("tiles", text=lang["Tiles"])
+        tree.heading("events", text=lang["Events"])
+        tree.heading("decorations", text=lang["Decorations"])
         tree.heading("directory", text="")
         
         # 열 너비 설정
@@ -136,7 +144,7 @@ def choosing_func():
         
         export_button = tb.Button(
             merging_window, 
-            text="Export",
+            text=lang["Export"],
             style="Custom.TButton",
             bootstyle="primary",
             command=lambda: merging_func(tree=tree)
@@ -229,14 +237,41 @@ def main_window():
     style = tb.Style()
     style.configure('Custom.TButton', font=("Helvetica", 14))
     
+    # 언어 선택
+    def change_language(lang_code):
+        global lang
+        
+        result = messagebox.askyesno(lang["Info"], lang["You must restart the program to change the language. Would you like to restart?"])
+        if result == False: return
+        
+        with open("save.json", "r", encoding="utf-8-sig") as file:
+            data: dict = json.loads(file.read())
+        
+        data["lang"] = lang_code
+        
+        with open("save.json", "w", encoding="utf-8-sig") as file:
+            json.dump(data, file, indent=4)
+        
+        exit()
+    
+    language_label = tb.Label(window, text=lang["Select language"], bootstyle="primary", font=("Helvetica", 16))
+    
+    # 언어 선택 콤보박스 추가
+    language_selector = ttk.Combobox(window, values=["en", "ko-KR"], state="readonly")
+    language_selector.bind("<<ComboboxSelected>>", lambda e: change_language(language_selector.get()))
+    
     choice_button = tb.Button(
         window, 
-        text="Import",
+        text=lang["Import"],
         style="Custom.TButton",
         bootstyle="primary",
         command=choosing_func
     )
-    choice_button.pack(side="top", expand=True)
+    
+    
+    language_label.pack(anchor="center", pady=20)
+    language_selector.pack()
+    choice_button.pack(side="top", pady=100)
     
     window.mainloop()
 
