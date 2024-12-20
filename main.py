@@ -2,12 +2,30 @@ import ttkbootstrap as tb
 import infocounter
 import tkinter
 import json
+import sys
+import subprocess
 from tkinter import filedialog, ttk, messagebox
 
 #TODO Changhyeon 타일pos찍을수있게만들어주세요 <- 나중에 할게요 계산 뜯어고쳐야 해서 너무 힘들듯
-#TODO Changhyeon 테마변경 <- 기각 ㅈㅅ ( 라이트모드만들어도안쓸것같아요 )
 #TODO Jongyeol 언어팩 + 시간 <- 언어팩은 만들었어요 / 시간은 계산하기 힘든데 해볼게요
 #TODO Jongyeol 총합 <- 나중에 할게요 2222 가 아니라 지금해볼게요
+
+# 재시작
+def is_running_in_ide():
+    return not hasattr(sys, 'frozen')  # exe로 빌드되면 'frozen' 속성이 생김
+
+def restart():
+    if is_running_in_ide():
+        print("IDE에서 실행 중입니다. exit()로 종료합니다.")
+        exit()  # IDE에서는 exit()로 종료
+    else:
+        print("EXE 파일로 실행 중입니다. 재시작합니다.")
+        try:
+            current_exe = sys.executable
+            subprocess.Popen([current_exe])
+            sys.exit(0)
+        except Exception as e:
+            print(f"프로그램 재시작 실패: {e}")
 
 # 번역을 하다
 def load_language(lang_code):
@@ -252,7 +270,7 @@ def main_window():
         with open("save.json", "w", encoding="utf-8-sig") as file:
             json.dump(data, file, indent=4)
         
-        exit()
+        restart()
     
     language_label = tb.Label(window, text=lang["Select language"], bootstyle="primary", font=("Helvetica", 16))
     
@@ -267,7 +285,6 @@ def main_window():
         bootstyle="primary",
         command=choosing_func
     )
-    
     
     language_label.pack(anchor="center", pady=20)
     language_selector.pack()
