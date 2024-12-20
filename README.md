@@ -18,7 +18,13 @@ MYC는 모종의 이유로 파일을 분할하여 에디팅을 하는 분이나 
 - 언어 선택
   말 그대로 언어를 선택할 수 있습니다.
   지원되는 언어 : en / ko-KR
+- 간지
+  병합을 할 때 간지를 낼 수 있습니다.
 
+## 개발 환경
+- Windows x64 10
+- Visual Studio Code
+- Python 3
 
 <div align="right">
   
