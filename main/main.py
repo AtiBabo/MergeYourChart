@@ -9,13 +9,19 @@ from tkinter import filedialog, ttk, messagebox
 #TODO Changhyeon 타일pos찍을수있게만들어주세요 <- 나중에 할게요 계산 뜯어고쳐야 해서 너무 힘들듯
 #TODO Jongyeol 언어팩 + 시간 <- 언어팩은 만들었어요 / 시간은 계산하기 힘든데 해볼게요
 #TODO Jongyeol 총합 <- 나중에 할게요 2222 가 아니라 지금해볼게요
+#TODO 선택적인 병합
+#TODO 제대로된 adofai파일인지 확인
+
+# 문제가 있는 얼불춤 파일이 아닌지 확인
+def valid_adofai():
+    pass # 나 졸려 잘랭
 
 # 재시작
-def is_running_in_ide():
-    return not hasattr(sys, 'frozen')  # exe로 빌드되면 'frozen' 속성이 생김
+def running_ide():
+    return not hasattr(sys, 'frozen')  # exe로 빌드되면 frozen 속성이 생김
 
 def restart():
-    if is_running_in_ide():
+    if running_ide():
         print("IDE에서 실행 중입니다. exit()로 종료합니다.")
         exit()  # IDE에서는 exit()로 종료
     else:
@@ -63,11 +69,11 @@ def choosing_func():
         
         # 병합
         final = {
-                "angleData": [],
-                "settings": {},
-                "actions": [],
-                "decorations": []
-            }
+            "angleData": [],
+            "settings": {},
+            "actions": [],
+            "decorations": []
+        }
         
         for index, file in enumerate(order, 1):
             with open(file[-1], "r", encoding="utf-8-sig") as json_file:
