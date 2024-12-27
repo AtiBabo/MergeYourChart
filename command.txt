@@ -1,0 +1,1 @@
+pyinstaller --noconsole --add-data "main/lang/ko-KR.json;lang" --add-data "main/lang/en.json;lang" --add-data "main/save.json;." --add-data "main/infocounter.py;." main/main.py

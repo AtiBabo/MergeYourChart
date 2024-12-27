@@ -3,6 +3,7 @@ import infocounter
 import tkinter
 import json
 import sys
+import os
 import subprocess
 from tkinter import filedialog, ttk, messagebox
 
@@ -11,10 +12,23 @@ from tkinter import filedialog, ttk, messagebox
 #TODO Jongyeol 총합 <- 나중에 할게요 2222 가 아니라 지금해볼게요
 #TODO 선택적인 병합
 #TODO 제대로된 adofai파일인지 확인
+#TODO 내보낼때 경로선택
 
 # 문제가 있는 얼불춤 파일이 아닌지 확인
 def valid_adofai():
     pass # 나 졸려 잘랭
+
+def resource_path(relative_path):
+    """PyInstaller 빌드 후 리소스 파일의 경로를 반환"""
+    return(relative_path)
+    # try:
+    #     # PyInstaller 실행 환경에서 임시 디렉토리를 반환
+    #     base_path = sys._MEIPASS
+    # except AttributeError:
+    #     # 개발 환경에서는 현재 디렉토리를 반환
+    #     base_path = os.path.abspath(".")
+    
+    # return os.path.join(base_path, relative_path)
 
 # 재시작
 def running_ide():
@@ -35,11 +49,11 @@ def restart():
 
 # 번역을 하다
 def load_language(lang_code):
-    with open(f"lang/{lang_code}.json", "r", encoding="utf-8") as file:
+    with open(resource_path(f"lang/{lang_code}.json"), "r", encoding="utf-8") as file:
         return json.load(file)
 
 # 언어를 적용하다
-with open("save.json", "r", encoding="utf-8-sig") as file:
+with open(resource_path("save.json"), "r", encoding="utf-8-sig") as file:
     data: dict = json.loads(file.read())
 
 if data["lang"]:
@@ -76,7 +90,7 @@ def choosing_func():
         }
         
         for index, file in enumerate(order, 1):
-            with open(file[-1], "r", encoding="utf-8-sig") as json_file:
+            with open(resource_path(file[-1]), "r", encoding="utf-8-sig") as json_file:
                 data: dict = json.loads(infocounter.adofai_jeongsanghwa(json_file.read()))
             
             if index == 1: final["settings"].update(data["settings"]) # 1번일 경우 settings옮기기
@@ -96,8 +110,9 @@ def choosing_func():
             final["angleData"] += data["angleData"] # 타일 병합
         
         folder_path = filedialog.askdirectory(title=lang["Choice the folder"])
+        name, extension = os.path.splitext(title)
         
-        with open(f"{folder_path}/{title}", "w", encoding="utf-8-sig") as file_write: # 최종 저장
+        with open(resource_path(f"{folder_path}/{name}_MYC{extension}"), "w", encoding="utf-8-sig") as file_write: # 최종 저장
             json.dump(final, file_write, indent=4, ensure_ascii=False)
         
         messagebox.showinfo(lang["Info"], lang["Merge success."])
@@ -268,12 +283,12 @@ def main_window():
         result = messagebox.askyesno(lang["Info"], lang["You must restart the program to change the language. Would you like to restart?"])
         if result == False: return
         
-        with open("save.json", "r", encoding="utf-8-sig") as file:
+        with open(resource_path("save.json"), "r", encoding="utf-8-sig") as file:
             data: dict = json.loads(file.read())
         
         data["lang"] = lang_code
         
-        with open("save.json", "w", encoding="utf-8-sig") as file:
+        with open(resource_path("save.json"), "w", encoding="utf-8-sig") as file:
             json.dump(data, file, indent=4)
         
         restart()
