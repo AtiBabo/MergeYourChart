@@ -1,10 +1,10 @@
 # MYC
 ### MergeYourChart
-![Static Badge](https://img.shields.io/badge/Python-blue?style=flat&logo=python&logoColor=ffffff&label=Language)
+![Static Badge](https://img.shields.io/badge/Python-blue?style=flat&logo=python&logoColor=ffffff&label=Language)   
+![asdfasdfasdfsadfklhbjsfdkljhsdfhljsdf](https://github.com/user-attachments/assets/e686128f-d9ed-4f5f-a861-1d5e8a0473cc)
 
 ## 목차
-**[1. 소개](#1-소개)**
-
+**[1. 소개](#1-소개)**   
 **[2. 기능](#2-기능)**
 
 ## 1. 소개 Introduction
@@ -13,16 +13,15 @@ MYC는 모종의 이유로 파일을 분할하여 에디팅을 하는 분이나 
 **아직 Alpha 버전이기에 여러 버그나 문제점 등이 발견될 수 있습니다.**
 
 ## 2. 기능 Functions
-- 병합
-
-  가장 중요한 기능인 병합은 채보 / 이벤트 / 장식을 이어줍니다.
-  병합을 할 때 셋 중 병합하지 않을 요소를 선택할 수 있습니다.
-- 언어 선택
-
-  말 그대로 언어를 선택할 수 있습니다.
+- 병합   
+  가장 중요한 기능인 병합은 채보 / 이벤트 / 장식을 이어줍니다.   
+  병합을 할 때 셋 중 병합하지 않을 요소를 선택할 수 있습니다. (라고 하였지만 아직 구현되지 않았습니다.)
+  
+- 언어 선택   
+  말 그대로 언어를 선택할 수 있습니다.   
   지원되는 언어 : en / ko-KR
-- 간지
-
+  
+- 간지   
   병합을 할 때 간지를 낼 수 있습니다.
 
 ## 3. 설치 Installing
@@ -35,7 +34,7 @@ MYC는 모종의 이유로 파일을 분할하여 에디팅을 하는 분이나 
 - Python 3
 
 ## 지원 Support
-- Discord : itcomputer 아티
+- Discord : itcomputer
 - E-mail : keh09523@gmail.com
 
 <div align="right">
