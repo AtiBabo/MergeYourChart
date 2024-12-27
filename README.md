@@ -1,6 +1,7 @@
 # MYC
 ### MergeYourChart
 ![Static Badge](https://img.shields.io/badge/Python-blue?style=flat&logo=python&logoColor=ffffff&label=Language)
+![asdfasdfasdfsadfklhbjsfdkljhsdfhljsdf](https://github.com/user-attachments/assets/e686128f-d9ed-4f5f-a861-1d5e8a0473cc)
 
 ## 목차
 **[1. 소개](#1-소개)**
@@ -17,10 +18,12 @@ MYC는 모종의 이유로 파일을 분할하여 에디팅을 하는 분이나 
 
   가장 중요한 기능인 병합은 채보 / 이벤트 / 장식을 이어줍니다.
   병합을 할 때 셋 중 병합하지 않을 요소를 선택할 수 있습니다.
+  
 - 언어 선택
 
   말 그대로 언어를 선택할 수 있습니다.
   지원되는 언어 : en / ko-KR
+  
 - 간지
 
   병합을 할 때 간지를 낼 수 있습니다.
