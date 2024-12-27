@@ -20,15 +20,14 @@ def valid_adofai():
 
 def resource_path(relative_path):
     """PyInstaller 빌드 후 리소스 파일의 경로를 반환"""
-    return(relative_path)
-    # try:
-    #     # PyInstaller 실행 환경에서 임시 디렉토리를 반환
-    #     base_path = sys._MEIPASS
-    # except AttributeError:
-    #     # 개발 환경에서는 현재 디렉토리를 반환
-    #     base_path = os.path.abspath(".")
+    try:
+        # PyInstaller 실행 환경에서 임시 디렉토리를 반환
+        base_path = sys._MEIPASS
+    except AttributeError:
+        # 개발 환경에서는 현재 디렉토리를 반환
+        base_path = os.path.abspath(".")
     
-    # return os.path.join(base_path, relative_path)
+    return os.path.join(base_path, relative_path)
 
 # 재시작
 def running_ide():
