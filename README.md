@@ -1,6 +1,7 @@
 # MYC
 ### MergeYourChart
 ![Static Badge](https://img.shields.io/badge/Python-blue?style=flat&logo=python&logoColor=ffffff&label=Language)
+
 ![asdfasdfasdfsadfklhbjsfdkljhsdfhljsdf](https://github.com/user-attachments/assets/e686128f-d9ed-4f5f-a861-1d5e8a0473cc)
 
 ## 목차
