@@ -12,7 +12,7 @@ from tkinter import filedialog, ttk, messagebox
 #TODO Jongyeol 총합 <- 나중에 할게요 2222 가 아니라 지금해볼게요
 #TODO 선택적인 병합
 #TODO 제대로된 adofai파일인지 확인
-#TODO 내보낼때 경로선택
+#TODO 내보낼 때 포멧이 작살나서 adopac에서 못 여는 버그 수정 <- 아마 dump를 수동으로 해야할듯
 
 # 문제가 있는 얼불춤 파일이 아닌지 확인
 def valid_adofai():
@@ -112,7 +112,7 @@ def choosing_func():
         name, extension = os.path.splitext(title)
         
         with open(resource_path(f"{folder_path}/{name}_MYC{extension}"), "w", encoding="utf-8-sig") as file_write: # 최종 저장
-            json.dump(final, file_write, separators=(',', ':'), ensure_ascii=False)
+            json.dump(final, file_write, ensure_ascii=False)
         
         messagebox.showinfo(lang["Info"], lang["Merge success."])
         
