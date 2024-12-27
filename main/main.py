@@ -25,7 +25,7 @@ def resource_path(relative_path):
         base_path = sys._MEIPASS
     except AttributeError:
         # 개발 환경에서는 현재 디렉토리를 반환
-        base_path = os.path.abspath(".")
+        return(relative_path)
     
     return os.path.join(base_path, relative_path)
 
@@ -48,11 +48,11 @@ def restart():
 
 # 번역을 하다
 def load_language(lang_code):
-    with open(resource_path(f"lang/{lang_code}.json"), "r", encoding="utf-8") as file:
+    with open(resource_path(f"main/lang/{lang_code}.json"), "r", encoding="utf-8") as file:
         return json.load(file)
 
 # 언어를 적용하다
-with open(resource_path("save.json"), "r", encoding="utf-8-sig") as file:
+with open(resource_path("main/save.json"), "r", encoding="utf-8-sig") as file:
     data: dict = json.loads(file.read())
 
 if data["lang"]:
@@ -112,7 +112,7 @@ def choosing_func():
         name, extension = os.path.splitext(title)
         
         with open(resource_path(f"{folder_path}/{name}_MYC{extension}"), "w", encoding="utf-8-sig") as file_write: # 최종 저장
-            json.dump(final, file_write, indent=4, ensure_ascii=False)
+            json.dump(final, file_write, separators=(',', ':'), ensure_ascii=False)
         
         messagebox.showinfo(lang["Info"], lang["Merge success."])
         
@@ -282,12 +282,12 @@ def main_window():
         result = messagebox.askyesno(lang["Info"], lang["You must restart the program to change the language. Would you like to restart?"])
         if result == False: return
         
-        with open(resource_path("save.json"), "r", encoding="utf-8-sig") as file:
+        with open(resource_path("main/save.json"), "r", encoding="utf-8-sig") as file:
             data: dict = json.loads(file.read())
         
         data["lang"] = lang_code
         
-        with open(resource_path("save.json"), "w", encoding="utf-8-sig") as file:
+        with open(resource_path("main/save.json"), "w", encoding="utf-8-sig") as file:
             json.dump(data, file, indent=4)
         
         restart()
