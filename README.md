@@ -39,7 +39,7 @@ MYC는 모종의 이유로 파일을 분할하여 에디팅을 하는 분이나 
 - Python 3
 
 ## 지원 Support
-- Discord : itcomputer 아티
+- Discord : itcomputer
 - E-mail : keh09523@gmail.com
 
 <div align="right">
