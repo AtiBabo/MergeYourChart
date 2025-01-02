@@ -1,3 +1,5 @@
+'''.adofai 파일의 타일 / 이벤트 / 장식의 수와 관련된 것들을 제어할 모듈'''
+
 import os
 import sys
 import json
